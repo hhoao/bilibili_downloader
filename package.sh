@@ -20,8 +20,8 @@ cat ../libs.txt
 cd ../target
 for jar in  `cat ../libs.txt`
 do
-    jclasspath=$jar:$jclasspath
-    jar xvf $jar
+	jclasspath=$jar:$jclasspath
+	jar xvf $jar
 done
 cd ..
 

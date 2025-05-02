@@ -3,174 +3,171 @@ package nicelee.bilibili.model;
 import java.util.HashMap;
 
 public class ClipInfo {
-	String avTitle;
-	long cId;
-	String avId;
-	int page;
-	String title;
-	String picPreview;
-	String listName; // 收藏夹名称 或其它集合名称（不一定存在）
-	String listOwnerName; // 收藏夹主人 或其它集合的拥有者（不一定存在）
-	// 解析器太多，不想一个一个再去改，只有收藏夹有下面俩
-	long favTime;	// 收藏时间
-	long cTime;		// 发布、更新时间
-	String upName;
-	String upId;
-	HashMap<Integer, String> links;
-	
-	int remark = -1; // 用于ss番剧查询时显示顺序
+    String avTitle;
+    long cId;
+    String avId;
+    int page;
+    String title;
+    String picPreview;
+    String listName; // 收藏夹名称 或其它集合名称（不一定存在）
+    String listOwnerName; // 收藏夹主人 或其它集合的拥有者（不一定存在）
+    // 解析器太多，不想一个一个再去改，只有收藏夹有下面俩
+    long favTime; // 收藏时间
+    long cTime; // 发布、更新时间
+    String upName;
+    String upId;
+    HashMap<Integer, String> links;
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("------------------------------\r\n");
-		sb.append("--avTitle为 :").append(avTitle).append(" \r\n");
-		sb.append("--page为 :").append(page).append(" \r\n");
-		sb.append("--cId为 :").append(cId).append(" \r\n");
-		sb.append("--title为 :").append(title).append(" \r\n");
-		if (avId != null)
-			sb.append("--avId为 :").append(avId).append(" \r\n");
-		if (listName != null)
-			sb.append("--listName为 :").append(listName).append(" \r\n");
-		if (listOwnerName != null)
-			sb.append("--listOwnerName为 :").append(listOwnerName).append(" \r\n");
-		
-//		if (links != null) {
-//			for (String link : links.values()) {
-//				sb.append("----下载链接 :").append(link).append(" \r\n");
-//			}
-//		}
+    int remark = -1; // 用于ss番剧查询时显示顺序
 
-		return sb.toString();
-	}
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("------------------------------\r\n");
+        sb.append("--avTitle为 :").append(avTitle).append(" \r\n");
+        sb.append("--page为 :").append(page).append(" \r\n");
+        sb.append("--cId为 :").append(cId).append(" \r\n");
+        sb.append("--title为 :").append(title).append(" \r\n");
+        if (avId != null) sb.append("--avId为 :").append(avId).append(" \r\n");
+        if (listName != null) sb.append("--listName为 :").append(listName).append(" \r\n");
+        if (listOwnerName != null)
+            sb.append("--listOwnerName为 :").append(listOwnerName).append(" \r\n");
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this != null && obj != null) {
-			if (obj instanceof ClipInfo) {
-				ClipInfo clip = (ClipInfo) obj;
-				return (this.cId == clip.cId);
-			}
-		}
-		return false;
-	}
+        //		if (links != null) {
+        //			for (String link : links.values()) {
+        //				sb.append("----下载链接 :").append(link).append(" \r\n");
+        //			}
+        //		}
 
-	@Override
-	public int hashCode() {
-		return (int) cId;
-	}
+        return sb.toString();
+    }
 
-	public long getcId() {
-		return cId;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this != null && obj != null) {
+            if (obj instanceof ClipInfo) {
+                ClipInfo clip = (ClipInfo) obj;
+                return (this.cId == clip.cId);
+            }
+        }
+        return false;
+    }
 
-	public void setcId(long cId) {
-		this.cId = cId;
-	}
+    @Override
+    public int hashCode() {
+        return (int) cId;
+    }
 
-	public String getAvId() {
-		return avId;
-	}
+    public long getcId() {
+        return cId;
+    }
 
-	public void setAvId(String avId) {
-		this.avId = avId;
-	}
+    public void setcId(long cId) {
+        this.cId = cId;
+    }
 
-	public int getPage() {
-		return page;
-	}
+    public String getAvId() {
+        return avId;
+    }
 
-	public void setPage(int page) {
-		this.page = page;
-	}
+    public void setAvId(String avId) {
+        this.avId = avId;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public int getPage() {
+        return page;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setPage(int page) {
+        this.page = page;
+    }
 
-	public HashMap<Integer, String> getLinks() {
-		return links;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setLinks(HashMap<Integer, String> links) {
-		this.links = links;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public int getRemark() {
-		int p = remark == -1 ? page : remark;
-		return p;
-	}
+    public HashMap<Integer, String> getLinks() {
+        return links;
+    }
 
-	public void setRemark(int remark) {
-		this.remark = remark;
-	}
+    public void setLinks(HashMap<Integer, String> links) {
+        this.links = links;
+    }
 
-	public String getAvTitle() {
-		return avTitle;
-	}
+    public int getRemark() {
+        int p = remark == -1 ? page : remark;
+        return p;
+    }
 
-	public void setAvTitle(String avTitle) {
-		this.avTitle = avTitle;
-	}
+    public void setRemark(int remark) {
+        this.remark = remark;
+    }
 
-	public String getPicPreview() {
-		return picPreview;
-	}
+    public String getAvTitle() {
+        return avTitle;
+    }
 
-	public void setPicPreview(String picPreview) {
-		this.picPreview = picPreview;
-	}
+    public void setAvTitle(String avTitle) {
+        this.avTitle = avTitle;
+    }
 
-	public String getListName() {
-		return listName;
-	}
+    public String getPicPreview() {
+        return picPreview;
+    }
 
-	public void setListName(String listName) {
-		this.listName = listName;
-	}
+    public void setPicPreview(String picPreview) {
+        this.picPreview = picPreview;
+    }
 
-	public String getListOwnerName() {
-		return listOwnerName;
-	}
+    public String getListName() {
+        return listName;
+    }
 
-	public void setListOwnerName(String listOwnerName) {
-		this.listOwnerName = listOwnerName;
-	}
+    public void setListName(String listName) {
+        this.listName = listName;
+    }
 
-	public String getUpName() {
-		return upName;
-	}
+    public String getListOwnerName() {
+        return listOwnerName;
+    }
 
-	public void setUpName(String upName) {
-		this.upName = upName;
-	}
+    public void setListOwnerName(String listOwnerName) {
+        this.listOwnerName = listOwnerName;
+    }
 
-	public String getUpId() {
-		return upId;
-	}
+    public String getUpName() {
+        return upName;
+    }
 
-	public void setUpId(String upId) {
-		this.upId = upId;
-	}
+    public void setUpName(String upName) {
+        this.upName = upName;
+    }
 
-	public long getFavTime() {
-		return favTime;
-	}
+    public String getUpId() {
+        return upId;
+    }
 
-	public void setFavTime(long favTime) {
-		this.favTime = favTime;
-	}
+    public void setUpId(String upId) {
+        this.upId = upId;
+    }
 
-	public long getcTime() {
-		return cTime;
-	}
+    public long getFavTime() {
+        return favTime;
+    }
 
-	public void setcTime(long cTime) {
-		this.cTime = cTime;
-	}
+    public void setFavTime(long favTime) {
+        this.favTime = favTime;
+    }
 
+    public long getcTime() {
+        return cTime;
+    }
+
+    public void setcTime(long cTime) {
+        this.cTime = cTime;
+    }
 }

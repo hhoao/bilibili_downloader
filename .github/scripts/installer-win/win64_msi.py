@@ -21,7 +21,7 @@ cmd_package = f'''"{jpackage_path}" \
   --input ./release \
   --resource-dir ./resource \
   --name BilibiliDown \
-  --main-class nicelee.memory.App \
+  --main-class nicelee.App \
   --main-jar launch.jar \
   --java-options -Dfile.encoding=utf-8 \
   --java-options -Dbilibili.prop.log=false \
@@ -53,14 +53,14 @@ def exe_command(command, env=None):
            # print(line.decode('gbk','replace'), end='')
     exitcode = process.wait()
     return process, exitcode
-    
+
 def on_err(func, path, _):
     # 用于处理删除文件错误
     os.chmod(path, stat.S_IWRITE)
     func(path)
 
 import hashlib
- 
+
 def cal_file_sha1(file_path):
     hash_object = hashlib.sha1()
     with open(file_path, 'rb') as f:
@@ -68,7 +68,7 @@ def cal_file_sha1(file_path):
             hash_object.update(chunk)
     return hash_object.hexdigest()
 
-    
+
 def move_app_to_top(bundle):
     # 找到 app文件夹的 id
     pattern = r'<DirectoryRef Id="INSTALLDIR">[\s\S]*?Id="(.*?)" +Name="app"'
@@ -91,7 +91,7 @@ def move_app_to_top(bundle):
             return  origin.replace(f'<DirectoryRef Id="{app_dir_id}">', '<DirectoryRef Id="INSTALLDIR">')
     bundle_new = re.sub(pattern, repl_app_dir, bundle, flags = re.MULTILINE)
     return bundle_new
-    
+
 def set_nodes_permanent(bundle, dir_name):
     """
     遍历 {dir_name}文件夹下的节点，将其属性设为 Permanent="yes" NeverOverwrite="yes"
@@ -121,7 +121,7 @@ def set_nodes_permanent(bundle, dir_name):
         return  origin.replace('Win64="yes" ', 'Win64="yes" Permanent="yes" NeverOverwrite="yes" ')
     bundle_new = re.sub(pattern, repl_config_dir, bundle_new, flags = re.MULTILINE)
     """
-    
+
 def step_1_keep_space_clean():
     print("step_1: 确保空间空白\n")
     if os.path.exists("resource"):
@@ -136,7 +136,7 @@ def step_1_keep_space_clean():
     if os.path.exists("temp"):
         shutil.rmtree("temp", onerror=on_err)
     os.mkdir("temp")
-        
+
 def step_2_get_release_zip():
     print("step_2: 下载程序包\n")
     if not os.path.exists(zip_file_path):
@@ -156,19 +156,19 @@ def step_2_get_release_zip():
                 if downloaded < 1024:
                     print(str(data))
                 response.close()
-    
-        
+
+
 def step_3_deal_with_files():
     print("\nstep_3: 确保文件在正确的位置上\n")
     print("解压程序包到 ./release")
     zip_file = zipfile.ZipFile(zip_file_path, 'r')
     zip_file.extractall("./release")
     zip_file.close()
-    
+
     print("移动jre到 ./runtime")
     # shutil.move("./release/minimal-bilibilidown-jre", "./runtime")
     os.rename("./release/minimal-bilibilidown-jre", "./runtime")
-    
+
     print("删除不必要的文件")
     os.remove("./release/config/app.config")
     os.remove("./release/Double-Click-to-Run-for-Mac.command")
@@ -177,7 +177,7 @@ def step_3_deal_with_files():
     os.remove("./release/Create-Shortcut-on-Desktop-for-Win.vbs")
     os.remove("./release/Double-Click-to-Run-for-Win.bat")
     os.remove("./release/uninstall.bat")
-    
+
     print("移动相关文件到资源文件夹")
     #for conf in ['InstallDirNotEmptyDlg.wxs', 'main.wxs', 'overrides.wxi', 'ui.wxf', 'Locale_zh_CN.wxl', 'Locale_en_US.wxl']:
     #for conf in ['InstallDirNotEmptyDlg.wxs', 'main.wxs', 'overrides.wxi', 'ui.wxf', 'Locale_zh_CN.wxl', 'MsiInstallerStrings_zh_CN.wxl', 'MsiInstallerStrings_en.wxl']:
@@ -193,7 +193,7 @@ def step_3_deal_with_files():
     for dir_name in preserv_folders:
         if not os.path.exists(f"release/{dir_name}"):
             os.mkdir(f"release/{dir_name}")
-    
+
 def step_5_deal_with_BilibiliDown_cfg():
     print("step_5: 个性化配置 resource/BilibiliDown.cfg")
     with open('temp/images/win-msi.image/BilibiliDown/app/BilibiliDown.cfg', 'r', encoding='utf-8') as file:
@@ -204,24 +204,24 @@ def step_5_deal_with_BilibiliDown_cfg():
     cfg_new = cfg_new.replace('app.classpath=INeedBiliAV.jar', '')
     with open('resource/BilibiliDown.cfg','w', encoding='utf-8') as output:
         output.write(cfg_new)
-        
+
 def step_6_deal_with_bundle_wxf():
     print("step_6: 个性化配置 resource/bundle.wxf")
     with open('temp/config/bundle.wxf', 'r', encoding='utf-8') as file:
         bundle = file.read()
-        
+
     print('将app目录中的内容提到根目录')
     print('修改BilibiliDown.cfg')
     bundle = move_app_to_top(bundle)
-    
+
     print('设置目录或文件永久保存并不被覆盖')
     for dir_name in preserv_folders:
         bundle = set_nodes_permanent(bundle, dir_name)
-    
+
     print('设置安装目录在卸载时不被删除')
     pattern = r'<util:RemoveFolderEx On="uninstall" Property=.*?RemoveFolderEx>'
     bundle = re.sub(pattern, '', bundle, flags = re.MULTILINE)
-    
+
     with open('resource/bundle.wxf','w', encoding='utf-8') as output:
         output.write(bundle)
 
@@ -233,36 +233,36 @@ def compress_folder(folder_path, output_path):
                 arc_name = os.path.relpath(file_path, folder_path)
                 # print(arc_name)
                 zipf.write(file_path, arc_name)
-                
+
 def step_7_build_msi():
     print("step_7: 生成打包文件")
     print("删除不必要的文件")
     shutil.rmtree("./temp", onerror=on_err)
-    
+
     msi_path = f"./target/BilibiliDown-{version_installer}.msi"
     msi_sha1_path = f"{msi_path}.sha1"
     if os.path.exists(msi_path):
         os.remove(msi_path)
-    
+
     print("执行jpackage命令")
     exe_command(cmd_package, cmd_env)
-    
+
     print("计算MSI SHA1并输出")
     with open(msi_sha1_path,'w', encoding='utf-8') as output:
         sha1 = cal_file_sha1(msi_path)
         output.write(sha1)
-        
+
 def step_8_build_exe_zip():
     print("step_8: 生成包含exe的压缩包")
     print("重新解压程序包到 ./release_exe_zip")
     zip_file = zipfile.ZipFile(zip_file_path, 'r')
     zip_file.extractall("./release_exe_zip")
     zip_file.close()
-    
+
     print("jre由 minimal-bilibilidown-jre 重命名为 runtime")
     # shutil.move("./release/minimal-bilibilidown-jre", "./runtime")
     os.rename("./release_exe_zip/minimal-bilibilidown-jre", "./release_exe_zip/runtime")
-    
+
     print("删除不必要的文件")
     os.remove("./release_exe_zip/Double-Click-to-Run-for-Mac.command")
     os.remove("./release_exe_zip/Create-Shortcut-on-Desktop-for-Linux.sh")
@@ -270,42 +270,42 @@ def step_8_build_exe_zip():
     os.remove("./release_exe_zip/Create-Shortcut-on-Desktop-for-Win.vbs")
     os.remove("./release_exe_zip/uninstall.bat")
     os.remove("./release_exe_zip/update.bat")
-    
+
     print("将相关文件复制到app文件夹")
     os.mkdir("release_exe_zip/app")
     shutil.copy("temp/images/win-msi.image/BilibiliDown/app/.package", "release_exe_zip/app/.package")
     shutil.copy("resource/BilibiliDown.cfg", "release_exe_zip/app/BilibiliDown.cfg")
-    
+
     print("复制exe文件")
     shutil.copy("temp/images/win-msi.image/BilibiliDown/BilibiliDown.exe", "release_exe_zip/BilibiliDown.exe")
-    
+
     print("打包成压缩包")
     exe_zip_path = f"BilibiliDown.v{version}.win_x64_jre11.release.zip"
     exe_zip_sha1_path = f"{exe_zip_path}.sha1"
     compress_folder("release_exe_zip", exe_zip_path)
-    
+
     print("计算zip SHA1并输出")
     with open(exe_zip_sha1_path,'w', encoding='utf-8') as output:
         sha1 = cal_file_sha1(exe_zip_path)
         output.write(sha1)
-        
+
 if __name__ == '__main__':
 
     """  """
     step_1_keep_space_clean()
 
     step_2_get_release_zip()
-    
+
     step_3_deal_with_files()
-    
+
     print("step_4: 执行jpackage命令(为了得到原始的 BilibiliDown.cfg 和bundle.wxf)\n")
     exe_command(cmd_package, cmd_env)
 
     step_5_deal_with_BilibiliDown_cfg()
-    
+
     step_6_deal_with_bundle_wxf()
-    
+
     step_7_build_msi()
-        
+
     step_8_build_exe_zip()
     """ """

@@ -23,7 +23,7 @@ del /a /f /s /q  "*.java"
 cd ..
 
 :: 打包
-jar cvfe launch.jar nicelee.memory.App -C ./target-launcher .
+jar cvfe launch.jar nicelee.App -C ./target-launcher .
 
 echo 按任意键删除临时文件
 pause

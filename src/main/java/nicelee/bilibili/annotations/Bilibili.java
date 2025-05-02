@@ -8,17 +8,16 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 @Retention(RUNTIME)
-@Target({ TYPE, PACKAGE })
+@Target({TYPE, PACKAGE})
 public @interface Bilibili {
-	
-	
-	String name();
-	
-	String type() default "parser";
-	
-	int weight() default 66;
-	
-	String ifLoad() default "";
-	
-	String note() default "";
+
+    String name();
+
+    String type() default "parser";
+
+    int weight() default 66;
+
+    String ifLoad() default "";
+
+    String note() default "";
 }

@@ -1,31 +1,31 @@
-:: cd µ½½Å±¾ËùÔÚÄ¿Â¼
+:: cd åˆ°è„šæœ¬æ‰€åœ¨ç›®å½•
 cd /d %~dp0
 cd ../..
 
 pause
-:: ¸´ÖÆÕû¸öÎÄ¼ş¼Ğ
+:: å¤åˆ¶æ•´ä¸ªæ–‡ä»¶å¤¹
 xcopy src-launcher target-launcher\ /s /f /h
 
-:: É¾³ı²»ĞèÒªµÄjavaÎÄ¼ş
+:: åˆ é™¤ä¸éœ€è¦çš„javaæ–‡ä»¶
 :: rmdir /s/q target-launcher\nicelee\test\
 
-:: »ñÈ¡javaÎÄ¼şÁĞ±í
+:: è·å–javaæ–‡ä»¶åˆ—è¡¨
 cd target-launcher
 dir /s /B *.java > ../sources.txt
 cd ..
 
-:: ±àÒëjava
+:: ç¼–è¯‘java
 javac -encoding UTF-8 @sources.txt
 
-:: É¾³ıËùÓĞ.javaÎÄ¼ş
+:: åˆ é™¤æ‰€æœ‰.javaæ–‡ä»¶
 cd target-launcher
 del /a /f /s /q  "*.java"
 cd ..
 
-:: ´ò°ü
+:: æ‰“åŒ…
 jar cvfe launch.jar nicelee.memory.App -C ./target-launcher .
 
-echo °´ÈÎÒâ¼üÉ¾³ıÁÙÊ±ÎÄ¼ş
+echo æŒ‰ä»»æ„é”®åˆ é™¤ä¸´æ—¶æ–‡ä»¶
 pause
 
 rmdir /s/q  target-launcher\

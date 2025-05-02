@@ -467,7 +467,7 @@ query {
         * [`https://space.bilibili.com/20358094/album`](https://space.bilibili.com/20358094/album) 某Up的所有相簿× `没有付出的爱是廉价的，你连收藏都不肯😳`
 	* 优化：自定义文件名
         * 现在支持路径分隔符`/\`，e.g. 可将同质的某些视频放入同一个文件夹中
-        * 增加可自定义字段 阿婆主名称/id。详见[app.config](https://github.com/nICEnnnnnnnLee/BilibiliDown/blob/master/src/resources/app.config)
+        * 增加可自定义字段 阿婆主名称/id。详见[app.config](https://github.com/nICEnnnnnnnLee/BilibiliDown/blob/master/src/app.config)
 * V4.2 `2019-10-19` 
 	* 修复bug： 关闭扫码图/关于框时，如果有活动的任务，会错误地弹出提示
 	* 去除WebSocket依赖，实时弹幕相关可以参考[弹幕点歌姬](https://github.com/nICEnnnnnnnLee/DanmuMusicPlayer)
@@ -497,7 +497,7 @@ query {
     * 优化自定义名称
         * 目标是使通过`收藏夹` 和 `单独av`等不同方式得到的 `av标题` 和 `视频小标题` 均保持一致
         * 增加 `集合名称/拥有者` 字段，可通过条件来命名(也就是没有这个字段时不算数)
-        * 更多请查看`[app.config](https://github.com/nICEnnnnnnnLee/BilibiliDown/blob/master/src/resources/app.config)`
+        * 更多请查看`[app.config](https://github.com/nICEnnnnnnnLee/BilibiliDown/blob/master/src/app.config)`
     * 优化ToolTip提示，鼠标悬浮可显示内容过长时省略的内容
     * 增加菜单功能 - 配置/仓库文件改动后，可直接重新加载，而不必重启程序(某些设置必须重启的除外)
     * 增加功能 - 复制弹幕下载链接(实验)

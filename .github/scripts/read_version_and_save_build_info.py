@@ -16,11 +16,11 @@ with open('src/nicelee/ui/Global.java', encoding='utf-8') as file:
     version = searchObj.group(1)
     with open(os.environ.get("GITHUB_OUTPUT"),'w', encoding='utf-8') as output:
         output.write("value=" + version)
-        
-with open('src/resources/about.html', 'r', encoding='utf-8') as file:
+
+with open('src/about.html', 'r', encoding='utf-8') as file:
     about = file.read()
-    
-with open('src/resources/about.html', 'w', encoding='utf-8') as file:
+
+with open('src/about.html', 'w', encoding='utf-8') as file:
     buildInfo = f'''<div id="versionInfo" >
                     <p>版本信息: v{version} {buildType} - commit hash:<a href="https://github.com/{repo}/commit/{hashSHA}">{hashSHA}</a></p>
                     <p>编译信息: Build by Github Actions at {dateTime}, workflow: <a href="https://github.com/{repo}/actions/runs/{runId}">{runId}</a></p>

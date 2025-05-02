@@ -1,35 +1,35 @@
 @echo off
-:: ÇĞ»»µ½µ±Ç°ÎÄ¼şÄ¿Â¼
+:: åˆ‡æ¢åˆ°å½“å‰æ–‡ä»¶ç›®å½•
 cd /d %~dp0
-echo µÈ´ı³ÌĞò¹Ø±Õ
+echo ç­‰å¾…ç¨‹åºå…³é—­
 timeout 3
 
-:: Èç¹û´«Èëpid£¬ÇÒ½ø³ÌÈÔÈ»´æÔÚ£¬ÄÇÃ´Ç¿ÖÆÖÕÖ¹¸Ã½ø³Ì
+:: å¦‚æœä¼ å…¥pidï¼Œä¸”è¿›ç¨‹ä»ç„¶å­˜åœ¨ï¼Œé‚£ä¹ˆå¼ºåˆ¶ç»ˆæ­¢è¯¥è¿›ç¨‹
 set pid=%2
 if "%pid%"=="" goto :download_and_unzip_jar
-echo ½ø³Ìpid%pid%
+echo è¿›ç¨‹pid%pid%
 tasklist|findstr /i "%pid% " || goto :copy
-echo Ç¿ÖÆÖÕÖ¹½ø³Ì
+echo å¼ºåˆ¶ç»ˆæ­¢è¿›ç¨‹
 taskkill /F /PID %pid%
 goto :copy
 
-:: Èç¹ûÃ»ÓĞ´«Èëpid£¬ËµÃ÷ÊÇÈË¹¤µ÷ÓÃ£¬´ËÊ±ÏÂÔØ×îĞÂ°ü²¢½âÑ¹
+:: å¦‚æœæ²¡æœ‰ä¼ å…¥pidï¼Œè¯´æ˜æ˜¯äººå·¥è°ƒç”¨ï¼Œæ­¤æ—¶ä¸‹è½½æœ€æ–°åŒ…å¹¶è§£å‹
 :download_and_unzip_jar
 set Path=%~dp0minimal-bilibilidown-jre\bin\;%Path%
 set Path=%~dp0runtime\bin\;%Path%
 java -Dfile.encoding=utf-8 -cp INeedBiliAV.jar nicelee.bilibili.util.VersionManagerUtil
-if "%errorlevel%"=="1" (echo ¸üĞÂ³É¹¦ &goto :copy)
-if "%errorlevel%"=="0" (echo µ±Ç°ÒÑÊÇ×îĞÂ°æ±¾ &goto :end_pause)
-if "%errorlevel%"=="-1" (echo Î´ÄÜ¸üĞÂ³É¹¦ &goto :end_pause)
+if "%errorlevel%"=="1" (echo æ›´æ–°æˆåŠŸ &goto :copy)
+if "%errorlevel%"=="0" (echo å½“å‰å·²æ˜¯æœ€æ–°ç‰ˆæœ¬ &goto :end_pause)
+if "%errorlevel%"=="-1" (echo æœªèƒ½æ›´æ–°æˆåŠŸ &goto :end_pause)
 
 :copy
-:: ¸´ÖÆÎÄ¼ş(²»ÌáÊ¾Ö±½Ó¸²¸Ç)
+:: å¤åˆ¶æ–‡ä»¶(ä¸æç¤ºç›´æ¥è¦†ç›–)
 copy /Y "update\INeedBiliAV.update.jar" "INeedBiliAV.jar"
 
-if "%1"=="0" (echo ½ö¸üĞÂ &goto :end_pause) else (echo ¸üĞÂºóÖØÆô &goto :runApp)
+if "%1"=="0" (echo ä»…æ›´æ–° &goto :end_pause) else (echo æ›´æ–°åé‡å¯ &goto :runApp)
 
 :runApp
-:: ÔËĞĞ³ÌĞò
+:: è¿è¡Œç¨‹åº
 start javaw -Dfile.encoding=utf-8 -jar INeedBiliAV.jar
 
 :end

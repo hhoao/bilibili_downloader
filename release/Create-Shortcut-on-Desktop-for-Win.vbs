@@ -1,13 +1,13 @@
 Set WshShell = WScript.CreateObject("WScript.Shell")
-strCurFolder = createobject("Scripting.FileSystemObject").GetFolder(".").Path 'µ±Ç°Â·¾¶
-strDesktop = WshShell.SpecialFolders("Desktop") 'ÌØÊâÎÄ¼ş¼Ğ¡°×ÀÃæ¡±
-'Rem ÔÚ×ÀÃæ´´½¨Ò»¸öBilibiliDown¿ì½İ·½Ê½
-set oShellLink = WshShell.CreateShortcut(strDesktop & "\Bili ÏÂÔØÆ÷.lnk")
-oShellLink.TargetPath = strCurFolder & "\Double-Click-to-Run-for-Win.bat"  '¿ÉÖ´ĞĞÎÄ¼şÂ·¾¶
-oShellLink.Arguments = "" '³ÌĞòµÄ²ÎÊı
-oShellLink.WindowStyle = 7 '²ÎÊı1Ä¬ÈÏ´°¿Ú¼¤»î£¬²ÎÊı3×î´ó»¯¼¤»î£¬²ÎÊı7×îĞ¡»¯
-oShellLink.Hotkey = ""  '¿ì½İ¼ü
-oShellLink.IconLocation = strCurFolder &"\config\favicon.ico"  'Í¼±ê
-oShellLink.Description = "Bili ÏÂÔØÆ÷."  '±¸×¢
-oShellLink.WorkingDirectory = strCurFolder  'ÆğÊ¼Î»ÖÃ
-oShellLink.Save  '´´½¨±£´æ¿ì½İ·½Ê½ 
+strCurFolder = createobject("Scripting.FileSystemObject").GetFolder(".").Path 'å½“å‰è·¯å¾„
+strDesktop = WshShell.SpecialFolders("Desktop") 'ç‰¹æ®Šæ–‡ä»¶å¤¹â€œæ¡Œé¢â€
+'Rem åœ¨æ¡Œé¢åˆ›å»ºä¸€ä¸ªBilibiliDownå¿«æ·æ–¹å¼
+set oShellLink = WshShell.CreateShortcut(strDesktop & "\Bili ä¸‹è½½å™¨.lnk")
+oShellLink.TargetPath = strCurFolder & "\Double-Click-to-Run-for-Win.bat"  'å¯æ‰§è¡Œæ–‡ä»¶è·¯å¾„
+oShellLink.Arguments = "" 'ç¨‹åºçš„å‚æ•°
+oShellLink.WindowStyle = 7 'å‚æ•°1é»˜è®¤çª—å£æ¿€æ´»ï¼Œå‚æ•°3æœ€å¤§åŒ–æ¿€æ´»ï¼Œå‚æ•°7æœ€å°åŒ–
+oShellLink.Hotkey = ""  'å¿«æ·é”®
+oShellLink.IconLocation = strCurFolder &"\config\favicon.ico"  'å›¾æ ‡
+oShellLink.Description = "Bili ä¸‹è½½å™¨."  'å¤‡æ³¨
+oShellLink.WorkingDirectory = strCurFolder  'èµ·å§‹ä½ç½®
+oShellLink.Save  'åˆ›å»ºä¿å­˜å¿«æ·æ–¹å¼ 

@@ -1,5 +1,5 @@
 cd /d %~dp0
-:: 将精简jre写入当前环境的path
+:: 灏嗙簿绠�jre鍐欏叆褰撳墠鐜鐨刾ath
 set Path=%~dp0minimal-bilibilidown-jre\bin;%Path%
 set Path=%~dp0runtime\bin\;%Path%
 :: -Dhttps.protocols=TLSv1.2 https://bugs.openjdk.org/browse/JDK-8206923

@@ -1,18 +1,18 @@
-:: cd µ½½Å±¾ËùÔÚÄ¿Â¼
+:: cd åˆ°è„šæœ¬æ‰€åœ¨ç›®å½•
 cd /d %~dp0
 
-:: ¸´ÖÆÕû¸öÎÄ¼ş¼Ğ
+:: å¤åˆ¶æ•´ä¸ªæ–‡ä»¶å¤¹
 xcopy src target\ /s /f /h
 
-:: É¾³ı²»ĞèÒªµÄjavaÎÄ¼ş
+:: åˆ é™¤ä¸éœ€è¦çš„javaæ–‡ä»¶
 rmdir /s/q target\nicelee\test\
 
-:: »ñÈ¡javaÎÄ¼şÁĞ±í
+:: è·å–javaæ–‡ä»¶åˆ—è¡¨
 cd target
 dir /s /B *.java > ../sources.txt
 cd ..
 
-:: »ñÈ¡»·¾³±äÁ¿,½âÑ¹lib°ü
+:: è·å–ç¯å¢ƒå˜é‡,è§£å‹libåŒ…
 cd libs
 dir /s /B *.jar > ../libs.txt
 cd ../target
@@ -24,18 +24,18 @@ jar xvf %%i
 )
 cd ..
 
-:: ±àÒëjava
+:: ç¼–è¯‘java
 javac -cp !classpath! -encoding UTF-8 @sources.txt
 
-:: É¾³ıËùÓĞ.javaÎÄ¼ş
+:: åˆ é™¤æ‰€æœ‰.javaæ–‡ä»¶
 cd target
 del /a /f /s /q  "*.java"
 cd ..
 
-:: ´ò°ü
+:: æ‰“åŒ…
 jar cvfe INeedBiliAV.jar nicelee.ui.FrameMain -C ./target .
 
-echo °´ÈÎÒâ¼üÉ¾³ıÁÙÊ±ÎÄ¼ş
+echo æŒ‰ä»»æ„é”®åˆ é™¤ä¸´æ—¶æ–‡ä»¶
 pause
 
 rmdir /s/q  target\

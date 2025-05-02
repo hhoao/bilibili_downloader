@@ -1,10 +1,10 @@
 @echo off
-echo д©╠Йнд╪Ч╪пн╙ё╨ %~dp0
-echo ╦ц╫е╠╬╫╚╩Аи╬ЁЩнд╪Ч╪поб╣дкЫспнд╪Ч
-set/p option=╪лпЬп╤тьгК╟╢yх╥хо:
-if "%option%"=="y" echo дЗйДхКакy &goto :unistall
-if "%option%"=="Y" echo дЗйДхКакY &goto :unistall
-echo дЗйДхКак%option% &goto :end
+echo Г⌡╝Ф═┤Ф√┤Д╩╤Е╓╧Д╦╨О╪  %~dp0
+echo Х╞╔Х└ Ф°╛Е╟├Д╪ Е┬═И≥╓Ф√┤Д╩╤Е╓╧Д╦▀Г └Ф┴─Ф°┴Ф√┤Д╩╤
+set/p option=Г╩╖Г╩╜Е█╦Х╫╫Х╞╥Ф▄┴yГ║╝Х╝╓:
+if "%option%"=="y" echo Ф┌╗Х╬⌠Е┘╔Д╨├y &goto :unistall
+if "%option%"=="Y" echo Ф┌╗Х╬⌠Е┘╔Д╨├Y &goto :unistall
+echo Ф┌╗Х╬⌠Е┘╔Д╨├%option% &goto :end
 
 :unistall
 rd /s /q  "%~dp0"
